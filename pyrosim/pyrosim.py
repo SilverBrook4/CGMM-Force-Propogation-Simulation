@@ -189,24 +189,6 @@ def Send_Cube(name="default",pos=[0,0,0],size=[1,1,1],mass=1.0,rpy=[0,0,0]):
 
     availableLinkIndex = availableLinkIndex + 1
 
-def Send_Joint(name,parent,child,type,position,jointAxis):
-
-    joint = JOINT(name,parent,child,type,position)
-
-    joint.Save(f,jointAxis)
-
-def Send_Motor_Neuron(name,jointName):
-
-    f.write('    <neuron name = "' + str(name) + '" type = "motor"  jointName = "' + jointName + '" />\n')
-
-def Send_Sensor_Neuron(name,linkName):
-
-    f.write('    <neuron name = "' + str(name) + '" type = "sensor" linkName = "' + linkName + '" />\n')
-
-def Send_Hidden_Neuron(name):
-
-   f.write('    <neuron name = "' + str(name) + '" type = "hidden" />\n')
-
 def Send_Sphere(name="default",pos=[0,0,0],radius=1.0,mass=1.0,rpy=[0,0,0]):
 
     global availableLinkIndex
@@ -234,6 +216,51 @@ def Send_Sphere(name="default",pos=[0,0,0],radius=1.0,mass=1.0,rpy=[0,0,0]):
     linkNamesToIndices[name] = availableLinkIndex
 
     availableLinkIndex = availableLinkIndex + 1
+
+def Send_Cylinder(name="default",pos=[0,0,0],radius=1.0,height=1.0,rpy=[0,0,0]):
+
+    global availableLinkIndex
+
+    global links
+
+    if filetype == SDF_FILETYPE:
+
+        # TODO: implement
+        print("cylinders not currently implemented")
+    
+        links.append(link)
+    else:
+        link = LINK_URDF("cylinder",name,pos,[radius,height],mass,rpy)
+        
+        links.append(link)
+    
+    link.Save(f)
+
+    if filetype == SDF_FILETYPE:
+    
+    # TODO: implement
+
+    linkNamesToIndices[name] = availableLinkIndex
+
+    availableLinkIndex = availableLinkIndex + 1
+
+def Send_Joint(name,parent,child,type,position,jointAxis):
+
+    joint = JOINT(name,parent,child,type,position)
+
+    joint.Save(f,jointAxis)
+
+def Send_Motor_Neuron(name,jointName):
+
+    f.write('    <neuron name = "' + str(name) + '" type = "motor"  jointName = "' + jointName + '" />\n')
+
+def Send_Sensor_Neuron(name,linkName):
+
+    f.write('    <neuron name = "' + str(name) + '" type = "sensor" linkName = "' + linkName + '" />\n')
+
+def Send_Hidden_Neuron(name):
+
+   f.write('    <neuron name = "' + str(name) + '" type = "hidden" />\n')
 
 def Send_Synapse( sourceNeuronName , targetNeuronName , weight, type ):
 

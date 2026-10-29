@@ -1,3 +1,2 @@
-'''
-This file contains constants
-'''
+# constants files
+
