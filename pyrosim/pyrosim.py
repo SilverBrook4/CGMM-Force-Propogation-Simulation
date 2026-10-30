@@ -217,7 +217,7 @@ def Send_Sphere(name="default",pos=[0,0,0],radius=1.0,mass=1.0,rpy=[0,0,0]):
 
     availableLinkIndex = availableLinkIndex + 1
 
-def Send_Cylinder(name="default",pos=[0,0,0],radius=1.0,height=1.0, mass=1.0, rpy=[0,0,0]):
+def Send_Cylinder(name="default",pos=[0,0,0],radius=1.0,height=1.0,mass=1.0,rpy=[0,0,0]):
 
     global availableLinkIndex
 
@@ -237,8 +237,9 @@ def Send_Cylinder(name="default",pos=[0,0,0],radius=1.0,height=1.0, mass=1.0, rp
     link.Save(f)
 
     if filetype == SDF_FILETYPE:
+    
+        # TODO: implement
         pass
-    # TODO: implement
 
     linkNamesToIndices[name] = availableLinkIndex
 
