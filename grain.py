@@ -10,7 +10,7 @@ class Grain:
         file_path = "grain.urdf"
         self.grain_id = p.loadURDF(file_path)
 
-        # prepares frain to simulate
+        # prepares grain to simulate
         pyrosim.Prepare_To_Simulate(self.grain_id)
 
         # cleans up grain URDF file

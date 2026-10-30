@@ -1,19 +1,22 @@
 import pyrosim.pyrosim as pyrosim
 from simulate import run
 
-class Solution:
+class Solution: #(genome is a solution), calls functions to create files
 
     def __init__(self):
-
         pass
+        #TODO: Genome
 
+        #Direction and magnitude of force, grain mass and radius
+        #self.solutionID        
+
+    def set_ID(self, myID):
+        self.myID = myID
 
     # TODO: generates world URDF and SDF files
     def create_world(self):
-
         pass
-
-
+        
     # TODO: generates indevidual grain's URDF file
     '''
     Generates indevidual grain's URDF file
@@ -28,7 +31,7 @@ class Solution:
         # start file creation
         pyrosim.Start_URDF("grain.urdf")
 
-        pyrosm.Send_Cylinder(name="Grain",
+        pyrosim.Send_Cylinder(name="Grain",
                              pos=pos,
                              radius=radius,
                              height=height,
@@ -48,7 +51,7 @@ class Solution:
                           mass=1)
 
         # TODO: eventually replace with multi threading
-        run()
+        run() #simulate.run
 
 
     # TODO: waits for simulation to end and retrieves fitness (might not need to be implemented now)
