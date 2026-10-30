@@ -24,14 +24,15 @@ class Simulation:
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
 
         # checks if pybullet debugger is enabled 
-        if (not(c.PYBULLET_DEBUGGER)):
+        #TODO: Look at later
+        if (c.PYBULLET_DEBUGGER):
             p.configureDebugVisualizer(p.COV_ENABLE_GUI,0)
 
         # sets physics client gravity 
         p.setGravity(0, 0, -9.8, self.physicsClient)
 
         self.world = World(solutionID)
-        self.grain = Grain(solutionID)
+        self.grain = Grain() #TODO: Give solutionID?
 
 
     # class destructor 

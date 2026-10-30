@@ -1,5 +1,6 @@
 import pyrosim.pyrosim as pyrosim
 from simulate import run
+import constants as c
 
 class Solution: #(genome is a solution), calls functions to create files
 
@@ -7,8 +8,10 @@ class Solution: #(genome is a solution), calls functions to create files
         pass
         #TODO: Genome
 
-        #Direction and magnitude of force, grain mass and radius
-        #self.solutionID        
+        #Direction and magnitude of force, grain mass and radius TODO: Fix solution ID later
+        self.solutionID  = 1  
+        # 
+        # Set up directorGUI, solutionID, connection and supressMessages here?     
 
     def set_ID(self, myID):
         self.myID = myID
@@ -51,7 +54,7 @@ class Solution: #(genome is a solution), calls functions to create files
                           mass=1)
 
         # TODO: eventually replace with multi threading
-        run() #simulate.run
+        run(c.directOrGUI, self.solutionID, c.supressMessages) #simulate.run
 
 
     # TODO: waits for simulation to end and retrieves fitness (might not need to be implemented now)
