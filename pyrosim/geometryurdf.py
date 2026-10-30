@@ -16,7 +16,7 @@ class GEOMETRY_URDF:
 
         elif type == "cylinder":
 
-            self.string = '    <cylinder radius="' + str(size[0]) + '" length="' + str(size[1]) + '" />'
+            self.string2 = '    <cylinder radius="' + str(size[0]) + '" length="' + str(size[1]) + '" />'
 
         self.string3 = '</geometry>'
 
