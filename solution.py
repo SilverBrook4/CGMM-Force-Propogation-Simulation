@@ -26,7 +26,7 @@ class Solution: #(genome is a solution), calls functions to create files
     '''
     def create_cgmm(self, radius, height):
 
-        y = radius # y displacement of the grains
+        y = radius + 0.35 # y displacement of the grains
 
         # TODO: replace mass of one with genome mass
         self.create_grain(0, [-6 * radius, 2 * y, height / 2], radius, height, self.genome[0][6], self.genome[0][7], self.genome[0][8], self.genome[0][9])
