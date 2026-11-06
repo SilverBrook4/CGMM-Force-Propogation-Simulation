@@ -2,7 +2,7 @@ import pybullet as p
 import pybullet_data
 import pyrosim.pyrosim as pyrosim
 from world import World
-from grain import Grain
+from cgmm import CGMM
 import constants as c
 import time
 
@@ -32,7 +32,7 @@ class Simulation:
         p.setGravity(0, 0, -9.8, self.physicsClient)
 
         self.world = World(solutionID)
-        self.grain = Grain() #TODO: Give solutionID?
+        self.cgmm = CGMM() #TODO: Give solutionID?
 
 
     # class destructor 
