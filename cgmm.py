@@ -1,11 +1,12 @@
 from grain import Grain
+import constants as c
 
 class CGMM:
 
-    def __init__(self):
+    def __init__(self, genome):
 
-        grains = []
+        self.grains = []
 
-        for index in range(11):
+        for index in range(c.NUM_GRAINS):
 
-            grains.append(Grain(index))
+            self.grains.append(Grain(index))
