@@ -8,17 +8,21 @@ from pyrosim.visualurdf      import VISUAL_URDF
 
 from pyrosim.collisionurdf   import COLLISION_URDF
 
+from pyrosim.contacturdf     import CONTACT_URDF
+
 from pyrosim.commonFunctions import Save_Whitespace
 
 class LINK_URDF:
 
-    def __init__(self,type,name,pos,size,mass,rpy):
+    def __init__(self,type,name,pos,size,mass,friction,rpy):
 
         self.name = name
 
         self.depth = 1
 
         self.origin   = ORIGIN_URDF(pos, rpy)
+
+        self.contact  = CONTACT_URDF(friction)
 
         self.inertial  = INERTIAL_URDF(self.origin, mass)
 
@@ -31,6 +35,8 @@ class LINK_URDF:
     def Save(self,f):
 
         self.Save_Start_Tag(f)
+
+        self.contact.Save(f)
 
         self.inertial.Save(f)
 
