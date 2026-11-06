@@ -4,7 +4,7 @@ import os
 
 class Grain:
 
-    def __init__(self):
+    def __init__(self): #SolutionID?
 
         # loads file
         file_path = "grain.urdf"

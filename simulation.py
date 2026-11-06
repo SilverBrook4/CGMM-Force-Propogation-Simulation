@@ -40,16 +40,15 @@ class Simulation:
         p.disconnect()
 
 
-    # TODO: runs simulation loop and steps simulation
+    # Runs simulation loop and steps simulation
     def run(self):
-        print("Here")
         #Call start_simulation from solution
                 #Keep sim running
         for timestep in range(0,c.NUM_ITERS):
             time.sleep(1/240)
             p.stepSimulation() #updates the simulated world
 
-            #This is where we'd run sensors and motors
+            #(This is where we'd run sensors and motors)
 
             #slows simulation so it can be observed
             time.sleep(c.SIM_SLEEP)
