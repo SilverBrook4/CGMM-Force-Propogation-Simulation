@@ -4,10 +4,10 @@ import os
 
 class Grain:
 
-    def __init__(self):
+    def __init__(self, index):
 
         # loads file
-        file_path = "grain.urdf"
+        file_path = f"grain_{index}.urdf"
         self.grain_id = p.loadURDF(file_path)
 
         # prepares grain to simulate
