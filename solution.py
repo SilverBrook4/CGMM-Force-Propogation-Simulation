@@ -22,7 +22,7 @@ class Solution: #(genome is a solution), calls functions to create files
 
 
     '''
-    Generates all of the grains in the CGMM based off the solutions genome
+    Generates all of the grain files in the CGMM based off the solutions genome
     '''
     def create_cgmm(self, radius, height):
 
@@ -93,19 +93,11 @@ class Solution: #(genome is a solution), calls functions to create files
     def start_simulation(self):
         self.create_world()
 
-        # This might need to be removec cause it is handled by cgmm now
-        '''
-        for i in range(0,c.NUM_GRAINS):
-            self.create_grain(pos=[0, 0, 2],
-                            radius=0.5,
-                            height=1,
-                            mass=self.genome[i][6],
-                            friction=self.genome[i][7]) #TODO: Add friction
-        '''
         self.create_cgmm(radius=0.5, height=0.25)
 
         # TODO: eventually replace with multi threading
-        run(c.directOrGUI, self.solutionID, c.supressMessages) #simulate.run
+        #Calls simulate.run
+        run(c.directOrGUI, self.solutionID, c.supressMessages, self.genome) #simulate.run
 
 
     # TODO: waits for simulation to end and retrieves fitness (might not need to be implemented now)
