@@ -29,17 +29,17 @@ class Solution: #(genome is a solution), calls functions to create files
         y = radius # y displacement of the grains
 
         # TODO: replace mass of one with genome mass
-        self.create_grain(0, [-6 * radius, 2 * y, height / 2], radius, height, self.genome[0][6])
-        self.create_grain(1, [-4 * radius, 2 * y, height / 2], radius, height, self.genome[1][6])
-        self.create_grain(2, [-2 * radius, 2 * y, height / 2], radius, height, self.genome[2][6])
-        self.create_grain(3, [0, 2 * y, height / 2], radius, height, self.genome[3][6])
-        self.create_grain(4, [-5 * radius, y, height / 2], radius, height, self.genome[4][6])
-        self.create_grain(5, [-3 * radius, y, height / 2], radius, height, self.genome[5][6])
-        self.create_grain(6, [-radius, y, height / 2], radius, height, self.genome[6][6])
-        self.create_grain(7, [-6 * radius, 0, height / 2], radius, height, self.genome[7][6])
-        self.create_grain(8, [-4 * radius, 0, height / 2], radius, height, self.genome[8][6])
-        self.create_grain(9, [-2 * radius, 0, height / 2], radius, height, self.genome[9][6])
-        self.create_grain(10, [0, 0, height / 2], radius, height, self.genome[10][6])
+        self.create_grain(0, [-6 * radius, 2 * y, height / 2], radius, height, self.genome[0][6], self.genome[0][7], self.genome[0][8], self.genome[0][9])
+        self.create_grain(1, [-4 * radius, 2 * y, height / 2], radius, height, self.genome[1][6], self.genome[1][7], self.genome[1][8], self.genome[1][9])
+        self.create_grain(2, [-2 * radius, 2 * y, height / 2], radius, height, self.genome[2][6], self.genome[2][7], self.genome[2][8], self.genome[2][9])
+        self.create_grain(3, [0, 2 * y, height / 2], radius, height, self.genome[3][6], self.genome[3][7], self.genome[3][8], self.genome[3][9])
+        self.create_grain(4, [-5 * radius, y, height / 2], radius, height, self.genome[4][6], self.genome[4][7], self.genome[4][8], self.genome[4][9])
+        self.create_grain(5, [-3 * radius, y, height / 2], radius, height, self.genome[5][6], self.genome[5][7], self.genome[5][8], self.genome[5][9])
+        self.create_grain(6, [-radius, y, height / 2], radius, height, self.genome[6][6], self.genome[6][7], self.genome[6][8], self.genome[6][9])
+        self.create_grain(7, [-6 * radius, 0, height / 2], radius, height, self.genome[7][6], self.genome[7][7], self.genome[7][8], self.genome[7][9])
+        self.create_grain(8, [-4 * radius, 0, height / 2], radius, height, self.genome[8][6], self.genome[8][7], self.genome[8][8], self.genome[8][9])
+        self.create_grain(9, [-2 * radius, 0, height / 2], radius, height, self.genome[9][6], self.genome[9][7], self.genome[9][8], self.genome[9][9])
+        self.create_grain(10, [0, 0, height / 2], radius, height, self.genome[10][6], self.genome[10][7], self.genome[10][8], self.genome[10][9])
 
 
     # TODO: generates indevidual grain's URDF file
@@ -51,7 +51,7 @@ class Solution: #(genome is a solution), calls functions to create files
         radius (float): radius of the grain
         mass (float): mass of the grain
     '''
-    def create_grain(self, index, pos, radius, height, mass):
+    def create_grain(self, index, pos, radius, height, mass, lateral_friction, rolling_friction, spinning_friction):
 
         # start file creation
         pyrosim.Start_URDF(f"grain_{str(index)}.urdf")
@@ -60,7 +60,10 @@ class Solution: #(genome is a solution), calls functions to create files
                              pos=pos,
                              radius=radius,
                              height=height,
-                             mass=mass)
+                             mass=mass,
+                             lateral_friction=lateral_friction,
+                             rolling_friction=rolling_friction,
+                             spinning_friction=spinning_friction)
 
         #TODO: Call grain input force func (does this go into file creation? I think it does, it's a Pyrosim cmd). Do we know we're in the same URDF because we haven't ended it yet?
         # end file creation and save
@@ -86,7 +89,9 @@ class Solution: #(genome is a solution), calls functions to create files
                 self.genome[row][5] = False #useForceBool
 
             self.genome[row][6] = 1 #starting mass of grain
-            self.genome[row][7] = 1 #starting friction of grain
+            self.genome[row][7] = 1.0 # lateral friction
+            self.genome[row][8] = 1.0 # rolling friction
+            self.genome[row][9] = 1.0 # spinning friction
 
 
     # TODO: calls world and CGMM file creators and starts simulation
