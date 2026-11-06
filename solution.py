@@ -26,18 +26,20 @@ class Solution: #(genome is a solution), calls functions to create files
     '''
     def create_cgmm(self, radius, height):
 
+        y = radius # y displacement of the grains
+
         # TODO: replace mass of one with genome mass
-        self.create_grain(0, [-6 * radius, 4 * radius, height / 2], radius, height, 1)
-        self.create_grain(1, [-4 * radius, 4 * radius, height / 2], radius, height, 1)
-        self.create_grain(2, [-2 * radius, 4 * radius, height / 2], radius, height, 1)
-        self.create_grain(3, [0, 4 * radius, height / 2], radius, height, 1)
-        self.create_grain(4, [-5 * radius, 2 * radius, height / 2], radius, height, 1)
-        self.create_grain(5, [-3 * radius, 2 * radius, height / 2], radius, height, 1)
-        self.create_grain(6, [-radius, 2 * radius, height / 2], radius, height, 1)
-        self.create_grain(7, [-6 * radius, 0, height / 2], radius, height, 1)
-        self.create_grain(8, [-4 * radius, 0, height / 2], radius, height, 1)
-        self.create_grain(9, [-2 * radius, 0, height / 2], radius, height, 1)
-        self.create_grain(10, [0, 0, height / 2], radius, height, 1)
+        self.create_grain(0, [-6 * radius, 2 * y, height / 2], radius, height, self.genome[0][6])
+        self.create_grain(1, [-4 * radius, 2 * y, height / 2], radius, height, self.genome[1][6])
+        self.create_grain(2, [-2 * radius, 2 * y, height / 2], radius, height, self.genome[2][6])
+        self.create_grain(3, [0, 2 * y, height / 2], radius, height, self.genome[3][6])
+        self.create_grain(4, [-5 * radius, y, height / 2], radius, height, self.genome[4][6])
+        self.create_grain(5, [-3 * radius, y, height / 2], radius, height, self.genome[5][6])
+        self.create_grain(6, [-radius, y, height / 2], radius, height, self.genome[6][6])
+        self.create_grain(7, [-6 * radius, 0, height / 2], radius, height, self.genome[7][6])
+        self.create_grain(8, [-4 * radius, 0, height / 2], radius, height, self.genome[8][6])
+        self.create_grain(9, [-2 * radius, 0, height / 2], radius, height, self.genome[9][6])
+        self.create_grain(10, [0, 0, height / 2], radius, height, self.genome[10][6])
 
 
     # TODO: generates indevidual grain's URDF file
@@ -49,6 +51,21 @@ class Solution: #(genome is a solution), calls functions to create files
         radius (float): radius of the grain
         mass (float): mass of the grain
     '''
+    def create_grain(self, index, pos, radius, height, mass):
+
+        # start file creation
+        pyrosim.Start_URDF(f"grain_{str(index)}.urdf")
+
+        pyrosim.Send_Cylinder(name="Grain",
+                             pos=pos,
+                             radius=radius,
+                             height=height,
+                             mass=mass)
+
+        #TODO: Call grain input force func (does this go into file creation? I think it does, it's a Pyrosim cmd). Do we know we're in the same URDF because we haven't ended it yet?
+        # end file creation and save
+        pyrosim.End()
+
     
     def setup_Genome(self):
         #[forceObj_x, forceObj_y, dir_x, dir_y, dir_z, useForceBool, grainMass, grainFriction]
@@ -72,33 +89,20 @@ class Solution: #(genome is a solution), calls functions to create files
             self.genome[row][7] = 1 #starting friction of grain
 
 
-        # start file creation
-        pyrosim.Start_URDF(f"grain_{str(index)}.urdf")
-
-        pyrosim.Send_Cylinder(name="Grain",
-                             pos=pos,
-                             radius=radius,
-                             height=height,
-                             mass=mass)
-
-        #TODO: Call grain input force func (does this go into file creation? I think it does, it's a Pyrosim cmd). Do we know we're in the same URDF because we haven't ended it yet?
-        # end file creation and save
-        pyrosim.End()
-
-
     # TODO: calls world and CGMM file creators and starts simulation
     def start_simulation(self):
         self.create_world()
-<<<<<<< HEAD
+
+        # This might need to be removec cause it is handled by cgmm now
+        '''
         for i in range(0,c.NUM_GRAINS):
             self.create_grain(pos=[0, 0, 2],
                             radius=0.5,
                             height=1,
                             mass=self.genome[i][6],
                             friction=self.genome[i][7]) #TODO: Add friction
-=======
+        '''
         self.create_cgmm(radius=0.5, height=0.25)
->>>>>>> 33089e697c2c9199905d8c4eb29ac99661e62b2e
 
         # TODO: eventually replace with multi threading
         run(c.directOrGUI, self.solutionID, c.supressMessages) #simulate.run
