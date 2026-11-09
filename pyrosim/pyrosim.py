@@ -161,7 +161,7 @@ def Prepare_To_Simulate(bodyID):
 
     Prepare_Joint_Dictionary(bodyID)
 
-def Send_Cube(name="default",pos=[0,0,0],size=[1,1,1],mass=1.0,rpy=[0,0,0]):
+def Send_Cube(name="default",pos=[0,0,0],size=[1,1,1],mass=1.0,lateral_friction=1.0,rolling_friction=1.0,spinning_friction=1.0,rpy=[0,0,0]):
 
     global availableLinkIndex
 
@@ -175,7 +175,7 @@ def Send_Cube(name="default",pos=[0,0,0],size=[1,1,1],mass=1.0,rpy=[0,0,0]):
 
         links.append(link)
     else:
-        link = LINK_URDF(name,pos,size,mass,rpy)
+        link = LINK_URDF(name,pos,size,mass,[lateral_friction,rolling_friction,spinning_friction],rpy)
 
         links.append(link)
 
@@ -189,7 +189,7 @@ def Send_Cube(name="default",pos=[0,0,0],size=[1,1,1],mass=1.0,rpy=[0,0,0]):
 
     availableLinkIndex = availableLinkIndex + 1
 
-def Send_Sphere(name="default",pos=[0,0,0],radius=1.0,mass=1.0,rpy=[0,0,0]):
+def Send_Sphere(name="default",pos=[0,0,0],radius=1.0,mass=1.0,lateral_friction=1.0,rolling_friction=1.0,spinning_friction=1.0,rpy=[0,0,0]):
 
     global availableLinkIndex
 
@@ -203,7 +203,7 @@ def Send_Sphere(name="default",pos=[0,0,0],radius=1.0,mass=1.0,rpy=[0,0,0]):
     
         links.append(link)
     else:
-        link = LINK_URDF("sphere",name,pos,radius,mass,rpy)
+        link = LINK_URDF("sphere",name,pos,radius,mass,[lateral_friction,rolling_friction,spinning_friction],rpy)
         
         links.append(link)
     
@@ -217,7 +217,7 @@ def Send_Sphere(name="default",pos=[0,0,0],radius=1.0,mass=1.0,rpy=[0,0,0]):
 
     availableLinkIndex = availableLinkIndex + 1
 
-def Send_Cylinder(name="default",pos=[0,0,0],radius=1.0,height=1.0,mass=1.0,rpy=[0,0,0]):
+def Send_Cylinder(name="default",pos=[0,0,0],radius=1.0,height=1.0,mass=1.0,lateral_friction=1.0,rolling_friction=1.0,spinning_friction=1.0,rpy=[0,0,0]):
 
     global availableLinkIndex
 
@@ -230,7 +230,7 @@ def Send_Cylinder(name="default",pos=[0,0,0],radius=1.0,height=1.0,mass=1.0,rpy=
     
         links.append(link)
     else:
-        link = LINK_URDF("cylinder",name,pos,[radius,height],mass,rpy)
+        link = LINK_URDF("cylinder",name,pos,[radius,height],mass,[lateral_friction,rolling_friction,spinning_friction],rpy)
         
         links.append(link)
     

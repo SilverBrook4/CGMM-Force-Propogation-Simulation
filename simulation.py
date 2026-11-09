@@ -2,14 +2,14 @@ import pybullet as p
 import pybullet_data
 import pyrosim.pyrosim as pyrosim
 from world import World
-from grain import Grain
+from cgmm import CGMM
 import constants as c
 import time
 
 class Simulation:
 
     # initializes the simulation and connects the physics simulator
-    def __init__(self, directOrGUI, solutionID):
+    def __init__(self, directOrGUI, solutionID, genome):
         # shouldSleep is for if you should sleep to see the frame. Needed in run function
         # connects to physics client
         if (directOrGUI == "DIRECT"):
@@ -32,7 +32,7 @@ class Simulation:
         p.setGravity(0, 0, -9.8, self.physicsClient)
 
         self.world = World(solutionID)
-        self.grain = Grain() #TODO: Give solutionID?
+        self.cgmm = CGMM(genome) #TODO: Give solutionID?
 
 
     # class destructor 
@@ -40,16 +40,19 @@ class Simulation:
         p.disconnect()
 
 
-    # TODO: runs simulation loop and steps simulation
+    # Runs simulation loop and steps simulation
     def run(self):
-        print("Here")
         #Call start_simulation from solution
                 #Keep sim running
         for timestep in range(0,c.NUM_ITERS):
             time.sleep(1/240)
+
+            #Imput force here!
+            #for row in range(0, len(self.cgmm.genome)):
+            #    if self.cgmm.genome[row][5] == 
             p.stepSimulation() #updates the simulated world
 
-            #This is where we'd run sensors and motors
+            #(This is where we'd run sensors and motors)
 
             #slows simulation so it can be observed
             time.sleep(c.SIM_SLEEP)
