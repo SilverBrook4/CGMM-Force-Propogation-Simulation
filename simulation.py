@@ -31,6 +31,7 @@ class Simulation:
         # sets physics client gravity 
         p.setGravity(0, 0, -9.8, self.physicsClient)
 
+        self.genome = genome
         self.world = World(solutionID)
         self.cgmm = CGMM(genome) #TODO: Give solutionID?
 
@@ -48,8 +49,24 @@ class Simulation:
             time.sleep(1/240)
 
             #Imput force here!
-            #for row in range(0, len(self.cgmm.genome)):
-            #    if self.cgmm.genome[row][5] == 
+            '''
+            self.genome[row][0] forceObj_x
+            self.genome[row][1] forceObj_y
+            self.genome[row][2] dir_x
+            self.genome[row][3] dir_y
+            self.genome[row][4] dir_z
+
+            '''
+            for row in range(0, len(self.genome)):
+                if self.genome[row][5] == True:
+                    #Get the grain id
+                    p.applyExternalForce(self.cgmm.grains[row].grain_id,
+                                         -1,
+                                         [self.genome[row][0], self.genome[row][1], c.FIXED_Z_FORCE],
+                                         [self.genome[row][2], self.genome[row][3], self.genome[row][4]],
+                                         p.WORLD_FRAME)
+
+
             p.stepSimulation() #updates the simulated world
 
             #(This is where we'd run sensors and motors)
