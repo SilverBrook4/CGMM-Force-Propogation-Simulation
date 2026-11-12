@@ -41,7 +41,9 @@ class TruncatedSelection:
     # TODO: mutate children
     def mutate(self):
 
-        pass
+        for child in self.children:
+
+            self.children[child].mutate()
 
 
     # TODO: run simulation for each solution to evaluate fitness

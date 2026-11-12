@@ -58,12 +58,12 @@ class Simulation:
 
             '''
             for row in range(0, len(self.genome)):
-                if self.genome[row][5] == True:
+                if self.genome[row][0] == True:
                     #Get the grain id
                     p.applyExternalForce(self.cgmm.grains[row].grain_id,
                                          -1,
-                                         [self.genome[row][0], self.genome[row][1], c.FIXED_Z_FORCE],
-                                         [self.genome[row][2], self.genome[row][3], self.genome[row][4]],
+                                         [self.genome[row][1], self.genome[row][2], c.FIXED_Z_FORCE],
+                                         [self.genome[row][3], self.genome[row][4], self.genome[row][5]],
                                          p.WORLD_FRAME)
 
 

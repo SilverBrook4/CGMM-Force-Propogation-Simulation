@@ -2,10 +2,12 @@ import pyrosim.pyrosim as pyrosim
 from simulate import run
 import constants as c
 import numpy as np
+import random
 
 class Solution: #(genome is a solution), calls functions to create files
 
     def __init__(self):
+
         self.setup_Genome()
 
         #Direction and magnitude of force, grain mass and radius TODO: Fix solution ID later
@@ -23,6 +25,10 @@ class Solution: #(genome is a solution), calls functions to create files
 
     '''
     Generates all of the grain files in the CGMM based off the solutions genome
+
+    Parameters:
+        radius (float): radius of the grains
+        height (float): height of the grains
     '''
     def create_cgmm(self, radius, height):
 
@@ -71,31 +77,57 @@ class Solution: #(genome is a solution), calls functions to create files
 
     
     def setup_Genome(self):
+
         #[forceObj_x, forceObj_y, dir_x, dir_y, dir_z, useForceBool, grainMass, grainFriction]
         self.genome = np.zeros((c.NUM_GRAINS, c.NUM_GENOME_COLS))
+
         #TODO: Is it possible to make this more efficient?
         for row in range(0, len(self.genome)):
             #Only grain 0 will receive an input force, currently
             if row == 0:
-                self.genome[row][0] = 20 #forceObj_x
-                self.genome[row][1] = 20 #forceObj_y
-                self.genome[row][2] = 1 #dir_x
-                self.genome[row][3] = 1 #dir_y
-                self.genome[row][4] = 1 #dir_z
-                self.genome[row][5] = True #useForceBool
+
+                self.genome[row][0] = True #useForceBool
+                self.genome[row][1] = 20 #forceObj_x
+                self.genome[row][2] = 20 #forceObj_y
+                self.genome[row][3] = 1 #dir_x
+                self.genome[row][4] = 1 #dir_y
+                self.genome[row][5] = 1 #dir_z
+
             else:
+
                 #self.genome idx 0-4 pertain to the force. 
                 # Will keep at 0 for the grains that don't have a force directly applied
-                self.genome[row][5] = False #useForceBool
+                self.genome[row][0] = False #useForceBool
 
             self.genome[row][6] = 1 #starting mass of grain
             self.genome[row][7] = 1.0 # lateral friction
             self.genome[row][8] = 1.0 # rolling friction
             self.genome[row][9] = 1.0 # spinning friction
 
+    '''
+    Mutates the grains genome
+    '''
+    def mutate(self, num_grains_mutated=1, num_genes_mutated=1):
+
+        # get grains to mutate
+        grains_to_mutate = random.sample(list(range(len(self.genome))), num_grains_mutated)
+
+        # mutate each grain
+        for _, grain_index in enumerate(grains_to_mutate):
+
+            # check if grain outputs a force
+            if self.genome[grain_index][0] == True: # outputs force
+
+                genes_to_mutate = random.sample(list(range(1, len(self.genome[grain_index]))), num_genes_mutated)
+
+            else: # doesnt output force
+
+                genes_to_mutate = random.sample(list(range(6, len(self.genome[grain_index]))), num_genes_mutated)
+
 
     # TODO: calls world and CGMM file creators and starts simulation
     def start_simulation(self):
+
         self.create_world()
 
         self.create_cgmm(radius=0.5, height=0.25)
@@ -109,11 +141,4 @@ class Solution: #(genome is a solution), calls functions to create files
     def wait_for_simulation_to_end(self):
 
         pass
-
-
-    # TODO: might not be the right palce carrying over shell of project
-    def mutate(self):
-
-        pass
-
 
