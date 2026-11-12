@@ -28,7 +28,7 @@ class TruncatedSelection:
 
         self.spawn_children()
         self.mutate()
-        self.evaluate()
+        self.evaluate(self.children)
         self.select()
 
 
