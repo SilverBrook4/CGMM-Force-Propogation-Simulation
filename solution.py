@@ -34,7 +34,6 @@ class Solution: #(genome is a solution), calls functions to create files
 
         y = radius + 0.35 # y displacement of the grains
 
-        # TODO: replace mass of one with genome mass
         self.create_grain(0, [-6 * radius, 2 * y, height / 2], radius, height, self.genome[0][6], self.genome[0][7], self.genome[0][8], self.genome[0][9])
         self.create_grain(1, [-4 * radius, 2 * y, height / 2], radius, height, self.genome[1][6], self.genome[1][7], self.genome[1][8], self.genome[1][9])
         self.create_grain(2, [-2 * radius, 2 * y, height / 2], radius, height, self.genome[2][6], self.genome[2][7], self.genome[2][8], self.genome[2][9])
@@ -48,7 +47,6 @@ class Solution: #(genome is a solution), calls functions to create files
         self.create_grain(10, [0, 0, height / 2], radius, height, self.genome[10][6], self.genome[10][7], self.genome[10][8], self.genome[10][9])
 
 
-    # TODO: generates indevidual grain's URDF file
     '''
     Generates indevidual grain's URDF file
 
@@ -71,7 +69,6 @@ class Solution: #(genome is a solution), calls functions to create files
                              rolling_friction=rolling_friction,
                              spinning_friction=spinning_friction)
 
-        #TODO: Call grain input force func (does this go into file creation? I think it does, it's a Pyrosim cmd). Do we know we're in the same URDF because we haven't ended it yet?
         # end file creation and save
         pyrosim.End()
 
@@ -105,24 +102,107 @@ class Solution: #(genome is a solution), calls functions to create files
             self.genome[row][9] = 1.0 # spinning friction
 
     '''
-    Mutates the grains genome
+    Mutates the CGMM's genome
+
+    Parameters:
+        num_grains_mutated (int): number of grains to mutate in genome
+        num_genes_mutated: (int): number of genes to mutate in a grain's genome
+        learning_rate: (int): how much to scale mutations by
     '''
-    def mutate(self, num_grains_mutated=1, num_genes_mutated=1):
+    def mutate(self, num_grains_mutated=1, num_genes_mutated=1, learning_rate=1.0):
 
         # get grains to mutate
         grains_to_mutate = random.sample(list(range(len(self.genome))), num_grains_mutated)
 
         # mutate each grain
-        for _, grain_index in enumerate(grains_to_mutate):
+        for _, grain in enumerate(grains_to_mutate):
 
             # check if grain outputs a force
-            if self.genome[grain_index][0] == True: # outputs force
+            if self.genome[grain][0] == True: # outputs force
 
-                genes_to_mutate = random.sample(list(range(1, len(self.genome[grain_index]))), num_genes_mutated)
+                genes_to_mutate = random.sample(list(range(1, len(self.genome[grain]))), num_genes_mutated)
+
+                for _, gene in enumerate(genes_to_mutate):
+
+                    self.mutate_gene(grain, gene, learning_rate)
 
             else: # doesnt output force
 
-                genes_to_mutate = random.sample(list(range(6, len(self.genome[grain_index]))), num_genes_mutated)
+                genes_to_mutate = random.sample(list(range(6, len(self.genome[grain]))), num_genes_mutated)
+
+                for _, gene in enumerate(genes_to_mutate):
+
+                    self.mutate_gene(grain, gene, learning_rate)
+
+
+    '''
+    Mutates specified gene for a specific grain
+
+    Parameters:
+        grain (int): the grain to be mutated
+        gene (int): the gene of the grain to be mutated
+        learning_rate (float): how much to scale the mutation by
+    '''
+    def mutate_gene(self, grain, gene, learning_rate):
+
+        match gene:
+
+            case 1: # force magnitude x
+
+                mutation = np.random.rand(-c.FORCE_MAGNITUDE_X_BOUND, c.FORCE_MAGNITUDE_X_BOUND)
+                self.genome[grain][gene] = mutation * learning_rate
+
+            case 2: # force magnitude y
+
+                mutation = np.random.rand(-c.FORCE_MAGNITUDE_Y_BOUND, c.FORCE_MAGNITUDE_Y_BOUND)
+                self.genome[grain][gene] = mutation * learning_rate
+
+
+            case 3: # force direction x
+
+                mutation = np.random.rand(-c.FORCE_DIRECTION_X_BOUND, c.FORCE_DIRECTION_X_BOUND)
+                self.genome[grain][gene] = mutation * learning_rate
+
+
+            case 4: # force dircetion y
+
+                mutation = np.random.rand(-c.FORCE_DIRECTION_Y_BOUND, c.FORCE_DIRECTION_Y_BOUND)
+                self.genome[grain][gene] = mutation * learning_rate
+
+
+            case 5: # force direction z
+
+                mutation = np.random.rand(-c.FORCE_DIRECTION_Z_BOUND, c.FORCE_DIRECTION_Z_BOUND)
+                self.genome[grain][gene] = mutation * learning_rate
+
+
+            case 6: # mass
+
+                mutation = np.random.rand(-c.MASS_BOUND, c.MASS_BOUND)
+                self.genome[grain][gene] = mutation * learning_rate
+
+
+            case 7: # lateral friction
+
+                mutation = np.random.rand(-c.LATERAL_FRICTION_BOUND, c.LATERAL_FRICTION_BOUND)
+                self.genome[grain][gene] = mutation * learning_rate
+
+
+            case 8: # rolling friction
+
+                mutation = np.random.rand(-c.ROLLING_FRICTION_BOUND, c.ROLLING_FRICTION_BOUND)
+                self.genome[grain][gene] = mutation * learning_rate
+
+
+            case 9: # spinning friction
+
+                mutation = np.random.rand(-c.SPINNING_FRICTION_BOUND, c.SPINNING_FRICTION_BOUND)
+                self.genome[grain][gene] = mutation * learning_rate
+
+
+            case _: # default
+
+                pass
 
 
     # TODO: calls world and CGMM file creators and starts simulation
