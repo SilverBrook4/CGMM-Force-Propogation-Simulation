@@ -54,3 +54,15 @@ class TruncatedSelection:
     def select(self):
 
         pass
+
+
+    # TODO: save fitness and simulation data for graphing and analysis
+    def save_data(self):
+
+        pass
+
+
+    # TODO: run simultation with graphics on to show the best found solution
+    def show_best_solution(self):
+
+        pass
