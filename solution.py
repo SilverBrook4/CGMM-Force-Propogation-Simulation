@@ -15,8 +15,10 @@ class Solution: #(genome is a solution), calls functions to create files
         # 
         # Set up directorGUI, solutionID, connection and supressMessages here?     
 
+
     def set_ID(self, myID):
         self.myID = myID
+
 
     # TODO: generates world URDF and SDF files
     def create_world(self):
@@ -72,7 +74,7 @@ class Solution: #(genome is a solution), calls functions to create files
         # end file creation and save
         pyrosim.End()
 
-    
+
     def setup_Genome(self):
 
         #[forceObj_x, forceObj_y, dir_x, dir_y, dir_z, useForceBool, grainMass, grainFriction]

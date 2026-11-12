@@ -24,6 +24,9 @@ class TruncatedSelection:
             self.evolve_one_generation()
 
 
+    '''
+    Processes one generation of mutation, evaluation, and selection
+    '''
     def evolve_one_generation(self):
 
         self.spawn_children()
@@ -38,7 +41,9 @@ class TruncatedSelection:
         pass
 
 
-    # TODO: mutate children
+    '''
+    Mutates all children for a generation
+    '''
     def mutate(self):
 
         for child in self.children:
@@ -46,10 +51,20 @@ class TruncatedSelection:
             self.children[child].mutate()
 
 
-    # TODO: run simulation for each solution to evaluate fitness
+    '''
+    Runs simulated evaluations for each solution and waits till results are recorded before moving on
+    '''
     def evaluate(self, solutions):
 
-        pass
+        # starts simulation evaluation of solutions
+        for solution in solutions:
+
+            solutions[solution].start_simulation()
+
+        # waits for all solution simulations to finish and record results before moving on
+        for solution in solutions:
+
+            solutions[solution].wait_for_simulation_to_end()
 
 
     # TODO: evaluate solutions based on fitness function
