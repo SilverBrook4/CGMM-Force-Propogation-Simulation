@@ -74,12 +74,13 @@ class Simulation:
             '''
             for row in range(0, len(self.genome)):
                 if self.genome[row][0] == True:
+                    if timestep < 100:
                     #Get the grain id
-                    p.applyExternalForce(self.cgmm.grains[row].grain_id,
-                                         -1,
-                                         [self.genome[row][1], self.genome[row][2], c.FIXED_Z_FORCE],
-                                         [self.genome[row][3], self.genome[row][4], self.genome[row][5]],
-                                         p.WORLD_FRAME)
+                        p.applyExternalForce(self.cgmm.grains[row].grain_id,
+                                            -1,
+                                            [self.genome[row][1], self.genome[row][2], c.FIXED_Z_FORCE],
+                                            [-6 * 0.5, 2 * (0.25+.035), 0.25 / 2],
+                                            p.LINK_FRAME)
 
 
             p.stepSimulation() #updates the simulated world
