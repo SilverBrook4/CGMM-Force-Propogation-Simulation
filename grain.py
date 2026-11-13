@@ -14,3 +14,7 @@ class Grain:
 
         # cleans up grain URDF file
         os.system(f"rm {file_path}")
+
+    def getGrainPos(self):
+        pos, orn = p.getBasePositionAndOrientation(self.grain_id)
+        return pos

@@ -11,6 +11,8 @@ NUM_GENOME_COLS = 10 #[forceObj_x, forceObj_y, dir_x, dir_y, dir_z, useForceBool
 FIXED_Z_FORCE = 0 #todo: sHOULD THIS BE 0 OR 90?
 
 TAKE_VIDEO = False
+VIDEO_NAME = "xforce_100_yforce_-100_WORLD_FRAME.mp4" #should end with .mp4
+NUM_GENERATION = 100
 
 # ----- Evolutionary Algorithm Hyperparameter Defaults -----
 
