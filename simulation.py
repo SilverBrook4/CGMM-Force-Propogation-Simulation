@@ -5,6 +5,8 @@ from world import World
 from cgmm import CGMM
 import constants as c
 import time
+import os
+
 
 class Simulation:
 
@@ -38,11 +40,24 @@ class Simulation:
 
     # class destructor 
     def __del__(self):
+        if c.TAKE_VIDEO:
+            p.stopStateLogging(self.log_id)
+            #Can delete later, just to ensure we see the video
+            path = os.path.abspath("grains.mp4")
+            if os.path.exists(path) and os.path.getsize(path) > 0:
+                print("Video saved:", path, "-", os.path.getsize(path) // 1024, "KB")
+            else:
+                print("No video found at", path)
+        
         p.disconnect()
+        
 
 
     # Runs simulation loop and steps simulation
     def run(self):
+        if c.TAKE_VIDEO:
+            self.log_id = p.startStateLogging(p.STATE_LOGGING_VIDEO_MP4, "grains.mp4")
+       
         #Call start_simulation from solution
                 #Keep sim running
         for timestep in range(0,c.NUM_ITERS):

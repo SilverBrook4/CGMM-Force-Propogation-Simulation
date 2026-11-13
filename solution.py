@@ -84,13 +84,12 @@ class Solution: #(genome is a solution), calls functions to create files
         for row in range(0, len(self.genome)):
             #Only grain 0 will receive an input force, currently
             if row == 0:
-
                 self.genome[row][0] = True #useForceBool
                 self.genome[row][1] = 20 #forceObj_x
                 self.genome[row][2] = 20 #forceObj_y
                 self.genome[row][3] = 1 #dir_x
                 self.genome[row][4] = 1 #dir_y
-                self.genome[row][5] = 1 #dir_z
+                self.genome[row][5] = 0.125 #dir_z
 
             else:
 
