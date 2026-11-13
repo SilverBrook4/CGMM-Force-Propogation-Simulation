@@ -65,7 +65,7 @@ class Solution: #(genome is a solution), calls functions to create files
                              rolling_friction=rolling_friction,
                              spinning_friction=spinning_friction)
 
-        #TODO: Call grain input force func (does this go into file creation? I think it does, it's a Pyrosim cmd). Do we know we're in the same URDF because we haven't ended it yet?
+        
         # end file creation and save
         pyrosim.End()
 
@@ -81,7 +81,7 @@ class Solution: #(genome is a solution), calls functions to create files
                 self.genome[row][1] = 20 #forceObj_y
                 self.genome[row][2] = 1 #dir_x
                 self.genome[row][3] = 1 #dir_y
-                self.genome[row][4] = 1 #dir_z
+                self.genome[row][4] = 0.125 #dir_z
                 self.genome[row][5] = True #useForceBool
             else:
                 #self.genome idx 0-4 pertain to the force. 
