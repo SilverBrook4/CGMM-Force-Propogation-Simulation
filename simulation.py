@@ -42,13 +42,8 @@ class Simulation:
     def __del__(self):
         if c.TAKE_VIDEO:
             p.stopStateLogging(self.log_id)
-            #Can delete later, just to ensure we see the video
-            path = os.path.abspath("grains.mp4")
-            if os.path.exists(path) and os.path.getsize(path) > 0:
-                print("Video saved:", path, "-", os.path.getsize(path) // 1024, "KB")
-            else:
-                print("No video found at", path)
-        
+  
+
         p.disconnect()
         
 
@@ -56,31 +51,27 @@ class Simulation:
     # Runs simulation loop and steps simulation
     def run(self):
         if c.TAKE_VIDEO:
-            self.log_id = p.startStateLogging(p.STATE_LOGGING_VIDEO_MP4, "grains.mp4")
+            
+            script_dir = os.path.dirname(os.path.abspath(__file__))
+            path = os.path.join(script_dir, "Videos", c.VIDEO_NAME)
+
+            self.log_id = p.startStateLogging(p.STATE_LOGGING_VIDEO_MP4, path)
+
        
         #Call start_simulation from solution
                 #Keep sim running
         for timestep in range(0,c.NUM_ITERS):
             time.sleep(1/240)
 
-            #Imput force here!
-            '''
-            self.genome[row][0] forceObj_x
-            self.genome[row][1] forceObj_y
-            self.genome[row][2] dir_x
-            self.genome[row][3] dir_y
-            self.genome[row][4] dir_z
-
-            '''
             for row in range(0, len(self.genome)):
                 if self.genome[row][0] == True:
                     if timestep < 100:
-                    #Get the grain id
+                        pos = self.cgmm.grains[row].getGrainPos()
                         p.applyExternalForce(self.cgmm.grains[row].grain_id,
                                             -1,
-                                            [self.genome[row][1], self.genome[row][2], c.FIXED_Z_FORCE],
-                                            [-6 * 0.5, 2 * (0.25+.035), 0.25 / 2],
-                                            p.LINK_FRAME)
+                                            [self.genome[row][1], self.genome[row][2], c.FIXED_Z_FORCE], #force
+                                            [pos[0], pos[1], pos[2]], #position to hit on grain
+                                            p.WORLD_FRAME) #determined that we want WORLD_FRAME, as it keeps the force in the same direction in the world as the grain turns
 
 
             p.stepSimulation() #updates the simulated world
