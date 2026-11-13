@@ -87,9 +87,9 @@ class Solution: #(genome is a solution), calls functions to create files
                 self.genome[row][0] = True #useForceBool
                 self.genome[row][1] = 100 #forceObj_x
                 self.genome[row][2] = -100 #forceObj_y
-                self.genome[row][3] = 1 #dir_x
-                self.genome[row][4] = 1 #dir_y
-                self.genome[row][5] = 0.125 #dir_z
+                self.genome[row][3] = -6 * 0.5 #dir_x (starting pos x of grain 0)
+                self.genome[row][4] = 2 * (0.25+.035) #dir_y (starting pos y of grain 0)
+                self.genome[row][5] = 0.25 / 2 #dir_z (starting pos z of grain 0)
 
             else:
 
