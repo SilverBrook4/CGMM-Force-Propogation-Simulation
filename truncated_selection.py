@@ -1,20 +1,30 @@
 import numpy as np
 import os
+import uuid
+import copy
 import constants as c
 from solution import Solution
 
 class TruncatedSelection:
 
     # TODO: init the evo algorithm, create intitial parents, set up ID (uuid) for work across cores
-    def __init__(self, num_generations=c.NUM_GENERATIONS):
+    def __init__(self, num_generations=c.NUM_GENERATIONS, num_parents=c.POPULATION_SIZE):
 
         self.num_generations = num_generations
+        self.num_parents = num_parents
 
         self.parents = {}
         self.children = {}
 
+        # create starting parents
+        for parent in range(self.num_parents):
+
+            self.parents[parent] = Solution(uuid.uuid4().hex)
 
 
+    '''
+    Evolves the population over all generations
+    '''
     def evolve(self):
 
         self.evaluate(self.parents)
@@ -35,10 +45,17 @@ class TruncatedSelection:
         self.select()
 
 
-    # TODO: copy children from parents and set values
+    '''
+    Copys children from parents and sets their ID's
+    '''
     def spawn_children(self):
 
-        pass
+        self.children = {}
+
+        for child in range(self.num_parents):
+
+            self.children[child] = copy.deepcopy(self.parents[child])
+            self.children[child].set_id(uuid.uuid4().hex)
 
 
     '''

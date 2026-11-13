@@ -3,7 +3,7 @@ directOrGUI = "GUI"
 supressMessages = False
 PYBULLET_DEBUGGER = False
 
-NUM_ITERS = 1000
+NUM_ITERS = 100
 SIM_SLEEP = 0.0001
 NUM_GRAINS = 11
 NUM_GENOME_COLS = 10 #[forceObj_x, forceObj_y, dir_x, dir_y, dir_z, useForceBool, grainMass, grainFriction]
@@ -11,7 +11,12 @@ NUM_GENOME_COLS = 10 #[forceObj_x, forceObj_y, dir_x, dir_y, dir_z, useForceBool
 FIXED_Z_FORCE = 0 #todo: sHOULD THIS BE 0 OR 90?
 
 TAKE_VIDEO = False
-NUM_GENERATION = 100
+
+# ----- Evolutionary Algorithm Hyperparameter Defaults -----
+
+NUM_GENERATIONS = 2
+
+POPULATION_SIZE = 1
 
 # ----- Gene Mutation Ranges -----
 

@@ -6,18 +6,18 @@ import random
 
 class Solution: #(genome is a solution), calls functions to create files
 
-    def __init__(self):
+    def __init__(self, id):
 
-        self.setup_Genome()
+        self.setup_genome()
 
         #Direction and magnitude of force, grain mass and radius TODO: Fix solution ID later
-        self.solutionID  = 1  
-        # 
+        self.id  = id
         # Set up directorGUI, solutionID, connection and supressMessages here?     
 
 
-    def set_ID(self, myID):
-        self.myID = myID
+    def set_id(self, id):
+
+        self.id = id
 
 
     # TODO: generates world URDF and SDF files
@@ -75,7 +75,7 @@ class Solution: #(genome is a solution), calls functions to create files
         pyrosim.End()
 
 
-    def setup_Genome(self):
+    def setup_genome(self):
 
         #[forceObj_x, forceObj_y, dir_x, dir_y, dir_z, useForceBool, grainMass, grainFriction]
         self.genome = np.zeros((c.NUM_GRAINS, c.NUM_GENOME_COLS))
@@ -150,54 +150,54 @@ class Solution: #(genome is a solution), calls functions to create files
 
             case 1: # force magnitude x
 
-                mutation = np.random.rand(-c.FORCE_MAGNITUDE_X_BOUND, c.FORCE_MAGNITUDE_X_BOUND)
+                mutation = np.random.uniform(-c.FORCE_MAGNITUDE_X_BOUND, c.FORCE_MAGNITUDE_X_BOUND)
                 self.genome[grain][gene] += mutation * learning_rate
 
             case 2: # force magnitude y
 
-                mutation = np.random.rand(-c.FORCE_MAGNITUDE_Y_BOUND, c.FORCE_MAGNITUDE_Y_BOUND)
+                mutation = np.random.uniform(-c.FORCE_MAGNITUDE_Y_BOUND, c.FORCE_MAGNITUDE_Y_BOUND)
                 self.genome[grain][gene] += mutation * learning_rate
 
 
             case 3: # force direction x
 
-                mutation = np.random.rand(-c.FORCE_DIRECTION_X_BOUND, c.FORCE_DIRECTION_X_BOUND)
+                mutation = np.random.uniform(-c.FORCE_DIRECTION_X_BOUND, c.FORCE_DIRECTION_X_BOUND)
                 self.genome[grain][gene] += mutation * learning_rate
 
 
             case 4: # force dircetion y
 
-                mutation = np.random.rand(-c.FORCE_DIRECTION_Y_BOUND, c.FORCE_DIRECTION_Y_BOUND)
+                mutation = np.random.uniform(-c.FORCE_DIRECTION_Y_BOUND, c.FORCE_DIRECTION_Y_BOUND)
                 self.genome[grain][gene] += mutation * learning_rate
 
 
             case 5: # force direction z
 
-                mutation = np.random.rand(-c.FORCE_DIRECTION_Z_BOUND, c.FORCE_DIRECTION_Z_BOUND)
+                mutation = np.random.uniform(-c.FORCE_DIRECTION_Z_BOUND, c.FORCE_DIRECTION_Z_BOUND)
                 self.genome[grain][gene] += mutation * learning_rate
 
 
             case 6: # mass
 
-                mutation = np.random.rand(-c.MASS_BOUND, c.MASS_BOUND)
+                mutation = np.random.uniform(-c.MASS_BOUND, c.MASS_BOUND)
                 self.genome[grain][gene] += mutation * learning_rate
 
 
             case 7: # lateral friction
 
-                mutation = np.random.rand(-c.LATERAL_FRICTION_BOUND, c.LATERAL_FRICTION_BOUND)
+                mutation = np.random.uniform(-c.LATERAL_FRICTION_BOUND, c.LATERAL_FRICTION_BOUND)
                 self.genome[grain][gene] += mutation * learning_rate
 
 
             case 8: # rolling friction
 
-                mutation = np.random.rand(-c.ROLLING_FRICTION_BOUND, c.ROLLING_FRICTION_BOUND)
+                mutation = np.random.uniform(-c.ROLLING_FRICTION_BOUND, c.ROLLING_FRICTION_BOUND)
                 self.genome[grain][gene] += mutation * learning_rate
 
 
             case 9: # spinning friction
 
-                mutation = np.random.rand(-c.SPINNING_FRICTION_BOUND, c.SPINNING_FRICTION_BOUND)
+                mutation = np.random.uniform(-c.SPINNING_FRICTION_BOUND, c.SPINNING_FRICTION_BOUND)
                 self.genome[grain][gene] += mutation * learning_rate
 
 
@@ -216,7 +216,7 @@ class Solution: #(genome is a solution), calls functions to create files
 
         # TODO: eventually replace with multi threading
         #Calls simulate.run
-        run(c.directOrGUI, self.solutionID, c.supressMessages, self.genome) #simulate.run
+        run(c.directOrGUI, self.id, c.supressMessages, self.genome) #simulate.run
 
 
     # TODO: waits for simulation to end and retrieves fitness (might not need to be implemented now)
