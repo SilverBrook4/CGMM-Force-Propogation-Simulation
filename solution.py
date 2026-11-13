@@ -151,58 +151,59 @@ class Solution: #(genome is a solution), calls functions to create files
             case 1: # force magnitude x
 
                 mutation = np.random.rand(-c.FORCE_MAGNITUDE_X_BOUND, c.FORCE_MAGNITUDE_X_BOUND)
-                self.genome[grain][gene] = mutation * learning_rate
+                self.genome[grain][gene] += mutation * learning_rate
 
             case 2: # force magnitude y
 
                 mutation = np.random.rand(-c.FORCE_MAGNITUDE_Y_BOUND, c.FORCE_MAGNITUDE_Y_BOUND)
-                self.genome[grain][gene] = mutation * learning_rate
+                self.genome[grain][gene] += mutation * learning_rate
 
 
             case 3: # force direction x
 
                 mutation = np.random.rand(-c.FORCE_DIRECTION_X_BOUND, c.FORCE_DIRECTION_X_BOUND)
-                self.genome[grain][gene] = mutation * learning_rate
+                self.genome[grain][gene] += mutation * learning_rate
 
 
             case 4: # force dircetion y
 
                 mutation = np.random.rand(-c.FORCE_DIRECTION_Y_BOUND, c.FORCE_DIRECTION_Y_BOUND)
-                self.genome[grain][gene] = mutation * learning_rate
+                self.genome[grain][gene] += mutation * learning_rate
 
 
             case 5: # force direction z
 
                 mutation = np.random.rand(-c.FORCE_DIRECTION_Z_BOUND, c.FORCE_DIRECTION_Z_BOUND)
-                self.genome[grain][gene] = mutation * learning_rate
+                self.genome[grain][gene] += mutation * learning_rate
 
 
             case 6: # mass
 
                 mutation = np.random.rand(-c.MASS_BOUND, c.MASS_BOUND)
-                self.genome[grain][gene] = mutation * learning_rate
+                self.genome[grain][gene] += mutation * learning_rate
 
 
             case 7: # lateral friction
 
                 mutation = np.random.rand(-c.LATERAL_FRICTION_BOUND, c.LATERAL_FRICTION_BOUND)
-                self.genome[grain][gene] = mutation * learning_rate
+                self.genome[grain][gene] += mutation * learning_rate
 
 
             case 8: # rolling friction
 
                 mutation = np.random.rand(-c.ROLLING_FRICTION_BOUND, c.ROLLING_FRICTION_BOUND)
-                self.genome[grain][gene] = mutation * learning_rate
+                self.genome[grain][gene] += mutation * learning_rate
 
 
             case 9: # spinning friction
 
                 mutation = np.random.rand(-c.SPINNING_FRICTION_BOUND, c.SPINNING_FRICTION_BOUND)
-                self.genome[grain][gene] = mutation * learning_rate
+                self.genome[grain][gene] += mutation * learning_rate
 
 
             case _: # default
 
+                # TODO: probably should add a print statement or error handling
                 pass
 
 
