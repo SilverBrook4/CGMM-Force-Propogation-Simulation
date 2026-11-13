@@ -12,6 +12,7 @@ class Simulation:
 
     # initializes the simulation and connects the physics simulator
     def __init__(self, directOrGUI, solutionID, genome):
+
         # shouldSleep is for if you should sleep to see the frame. Needed in run function
         # connects to physics client
         if (directOrGUI == "DIRECT"):
@@ -27,7 +28,8 @@ class Simulation:
 
         # checks if pybullet debugger is enabled 
         #TODO: Look at later
-        if (c.PYBULLET_DEBUGGER):
+        if not c.PYBULLET_DEBUGGER:
+
             p.configureDebugVisualizer(p.COV_ENABLE_GUI,0)
 
         # sets physics client gravity 
