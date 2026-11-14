@@ -12,6 +12,7 @@ class Solution: #(genome is a solution), calls functions to create files
 
         #Direction and magnitude of force, grain mass and radius TODO: Fix solution ID later
         self.id  = id
+        self.target = [1, -1]
         # Set up directorGUI, solutionID, connection and supressMessages here?     
 
 
@@ -216,7 +217,7 @@ class Solution: #(genome is a solution), calls functions to create files
 
         # TODO: eventually replace with multi threading
         #Calls simulate.run
-        run(c.directOrGUI, self.id, c.supressMessages, self.genome) #simulate.run
+        run(c.directOrGUI, self.id, c.supressMessages, self.genome, self.target) #simulate.run
 
 
     # TODO: waits for simulation to end and retrieves fitness (might not need to be implemented now)
