@@ -70,6 +70,9 @@ class TruncatedSelection:
 
     '''
     Runs simulated evaluations for each solution and waits till results are recorded before moving on
+
+    Parameters:
+        solutions dict[int]=[array(float)]: solutions to be simulated and evaluated
     '''
     def evaluate(self, solutions):
 
