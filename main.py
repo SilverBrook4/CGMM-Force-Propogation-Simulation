@@ -1,6 +1,7 @@
 from solution import Solution
 def main():
-    solution = Solution()
+    id = 1
+    solution = Solution(id)
     solution.start_simulation()
 
 if __name__ == "__main__":
