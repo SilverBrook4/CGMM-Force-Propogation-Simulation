@@ -41,6 +41,7 @@ class TruncatedSelection:
 
         self.spawn_children()
         self.mutate()
+        self.crossover()
         self.evaluate(self.children)
         self.select()
 
@@ -66,6 +67,15 @@ class TruncatedSelection:
         for child in self.children:
 
             self.children[child].mutate()
+
+
+    '''Performs crossover on all children in a generation'''
+    def crossover(self):
+
+        for child in self.children:
+
+            self.children[child].crossover()
+
 
 
     '''

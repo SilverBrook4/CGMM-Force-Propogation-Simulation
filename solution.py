@@ -206,6 +206,19 @@ class Solution: #(genome is a solution), calls functions to create files
                 # TODO: probably should add a print statement or error handling
                 pass
 
+    '''
+    Performs crossover on the CGMM's genome
+
+    '''
+    def crossover(self):
+        #TODO: In future, provide a check for if there are multiple input forces.
+        # If there are multiple input forces, crossover can be applied to the input forces 
+        # (code in future when using multiple input forces) 
+
+        #For now, only perform crossover on the grain properties (mass and 3 types of friction)
+        #Pick random number of grains to perform crossover on
+        pass
+
 
     # TODO: calls world and CGMM file creators and starts simulation
     def start_simulation(self):
