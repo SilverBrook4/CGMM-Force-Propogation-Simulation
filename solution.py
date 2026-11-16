@@ -210,15 +210,34 @@ class Solution: #(genome is a solution), calls functions to create files
     '''
     Performs crossover on the CGMM's genome
 
-    '''
-    def crossover(self):
-        #TODO: In future, provide a check for if there are multiple input forces.
-        # If there are multiple input forces, crossover can be applied to the input forces 
-        # (code in future when using multiple input forces) 
+    Parameters:
+      solution2 (Solution): The other solution to perform crossover with
 
-        #For now, only perform crossover on the grain properties (mass and 3 types of friction)
-        #Pick random number of grains to perform crossover on
-        pass
+    Returns:
+        self.genome and solution2.genoem are updated during the crossover, so there are no separate returns
+    '''
+    def crossover(self, solution2):
+        #First, pick which grains will be used in crossover (returns a list)
+        grains_to_crossover = random.sample(range(0, c.NUM_GRAINS))
+
+        for grain_idx in range(0, len(grains_to_crossover)):
+            #Second, pick which properties of grains will be used in crossover for this grain
+            #Possible properties to use: genome indexes 1,2,3,4,5 for force and 6,7,8,9 for the grain
+
+            #If the grain has an input force, allow idxs 1-10 to be evolved
+            if self.genome[grain_idx][0]:
+                #Pick properties of this grain for crossover
+                [crossover_point1, crossover_point2] = sorted(np.random.randint(1,10,2)) # crossover points for 2-point crossover (sorted to make indexing easier in the next step)
+
+            #Else (grain does not have an input force), allow only idxs 6-10 to be evolved
+            else:
+                #Pick properties of this grain for crossover
+                [crossover_point1, crossover_point2] = sorted(np.random.randint(6,10,2)) # crossover points for 2-point crossover (sorted to make indexing easier in the next step)
+                
+            temp = self.genome.copy()
+            self.genome[crossover_point1:crossover_point2+1] = solution2.genome[crossover_point1:crossover_point2+1] # take the point between the crossover points and swap in the genes from the other parent
+            solution2.genome[crossover_point1:crossover_point2+1] = temp[crossover_point1:crossover_point2+1] #TODO: Does this work fine?
+
 
 
     # TODO: calls world and CGMM file creators and starts simulation

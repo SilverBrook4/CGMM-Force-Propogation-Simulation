@@ -40,8 +40,8 @@ class TruncatedSelection:
     def evolve_one_generation(self):
 
         self.spawn_children()
-        self.mutate()
         self.crossover()
+        self.mutate()
         self.evaluate(self.children)
         self.select()
 
@@ -72,9 +72,12 @@ class TruncatedSelection:
     '''Performs crossover on all children in a generation'''
     def crossover(self):
 
-        for child in self.children:
+        for idx in range(0,int(len(self.children)/2)):
+            [parent1, parent2] = np.random.choice(self.children, size=2) # pick 2 random parents
+            child1 = copy.deepcopy(parent1) # initialize children as perfect copies of their parents
+            child2 = copy.deepcopy(parent2)
 
-            self.children[child].crossover()
+            child1.crossover(child2)
 
 
 
