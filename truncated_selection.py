@@ -69,7 +69,9 @@ class TruncatedSelection:
             self.children[child].mutate()
 
 
-    '''Performs crossover on all children in a generation'''
+    '''
+    Performs crossover on all children in a generation
+    '''
     def crossover(self):
 
         for idx in range(0,int(len(self.children)/2)):
