@@ -105,7 +105,7 @@ class Simulation:
         pos_grain = self.cgmm.get_grain_position(10)
 
         x = self.target[0] - pos_grain[0]
-        y = self.target[1] = pos_grain[1]
+        y = self.target[1] - pos_grain[1]
 
         distance = np.sqrt(np.square(x) + np.square(y))
 

@@ -217,8 +217,10 @@ class Solution: #(genome is a solution), calls functions to create files
         self.genome and solution2.genoem are updated during the crossover, so there are no separate returns
     '''
     def crossover(self, solution2):
+
+        #TODO: Change so that it mutates the whole chunk at once (1-10 or 6-10)
         #First, pick which grains will be used in crossover (returns a list)
-        grains_to_crossover = random.sample(range(0, c.NUM_GRAINS))
+        grains_to_crossover = random.sample(range(0, c.NUM_GRAINS), c.NUM_GRAINS_TO_CROSSOVER)
 
         for grain_idx in range(0, len(grains_to_crossover)):
             #Second, pick which properties of grains will be used in crossover for this grain

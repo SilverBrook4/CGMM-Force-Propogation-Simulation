@@ -74,13 +74,14 @@ class TruncatedSelection:
     '''
     def crossover(self):
 
+        #TODO: Want to select how many times it goes
+        #for in in range num crossovers
         for idx in range(0,int(len(self.children)/2)):
             [parent1, parent2] = np.random.choice(self.children, size=2) # pick 2 random parents
             child1 = copy.deepcopy(parent1) # initialize children as perfect copies of their parents
             child2 = copy.deepcopy(parent2)
 
             child1.crossover(child2)
-
 
 
     '''
@@ -104,8 +105,9 @@ class TruncatedSelection:
 
     # TODO: evaluate solutions based on fitness function
     def select(self):
-
+        #**Lower fitness is better
         pass
+        
 
 
     # TODO: save fitness and simulation data for graphing and analysis
@@ -116,5 +118,5 @@ class TruncatedSelection:
 
     # TODO: run simultation with graphics on to show the best found solution
     def show_best_solution(self):
-
+        #Look in parallel hillclimber - record video of that and random initialization for one 
         pass
