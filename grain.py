@@ -14,3 +14,14 @@ class Grain:
 
         # cleans up grain URDF file
         os.system(f"rm {file_path}")
+
+    '''
+    Gets the current position of the grain in the simulation
+
+    Returns:
+        pos (int[]): the [x, y, z] position of the grain
+    '''
+    def get_grain_position(self):
+
+        pos, orn = p.getBasePositionAndOrientation(self.grain_id)
+        return pos
