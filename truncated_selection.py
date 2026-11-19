@@ -74,9 +74,15 @@ class TruncatedSelection:
     '''
     def crossover(self):
 
+        num_solutions_for_crossover = 0
         #TODO: Want to select how many times it goes
-        #for in in range num crossovers
-        for idx in range(0,int(len(self.children)/2)):
+  
+        if c.NUM_SOLUTIONS_TO_CROSSOVER > (len(self.children) / 2):
+            num_solutions_for_crossover = len(self.children) /2
+        else:
+            num_solutions_for_crossover = c.NUM_SOLUTIONS_TO_CROSSOVER / 2
+
+        for idx in range(0,int(num_solutions_for_crossover)):
             [parent1, parent2] = np.random.choice(self.children, size=2) # pick 2 random parents
             child1 = copy.deepcopy(parent1) # initialize children as perfect copies of their parents
             child2 = copy.deepcopy(parent2)

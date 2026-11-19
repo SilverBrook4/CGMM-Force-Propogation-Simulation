@@ -13,7 +13,7 @@ class Grain:
         pyrosim.Prepare_To_Simulate(self.grain_id)
 
         # cleans up grain URDF file
-        os.system(f"rm {file_path}")
+        os.remove(f"{file_path}")
 
     '''
     Gets the current position of the grain in the simulation

@@ -49,23 +49,25 @@ class Simulation:
 
     # class destructor 
     def __del__(self):
-
+        
         if c.TAKE_VIDEO:
 
             p.stopStateLogging(self.log_id)
+        
 
         p.disconnect()
 
 
     # Runs simulation loop and steps simulation
     def run(self):
-
+        
         if c.TAKE_VIDEO:
 
             script_dir = os.path.dirname(os.path.abspath(__file__))
             path = os.path.join(script_dir, "Videos", c.VIDEO_NAME)
 
             self.log_id = p.startStateLogging(p.STATE_LOGGING_VIDEO_MP4, path)
+        
 
         #Call start_simulation from solution
                 #Keep sim running
