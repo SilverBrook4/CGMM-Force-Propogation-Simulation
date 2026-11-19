@@ -8,7 +8,7 @@ class Solution: #(genome is a solution), calls functions to create files
 
     def __init__(self, id):
 
-        self.setup_genome()
+        self.randomize_genome()
 
         #Direction and magnitude of force, grain mass and radius TODO: Fix solution ID later
         self.id  = id
@@ -74,6 +74,31 @@ class Solution: #(genome is a solution), calls functions to create files
 
         # end file creation and save
         pyrosim.End()
+
+
+    def randomize_genome(self):
+
+        self.genome = np.zeros((c.NUM_GRAINS, c.NUM_GENOME_COLS))
+
+        for grain in range(len(self.genome)):
+
+            if grain == 0:
+
+                self.genome[grain][0] = True
+
+            else:
+
+                self.genome[grain][0] = False
+
+            self.genome[grain][1] = np.random.uniform(c.FORCE_X_MIN, c.FORCE_X_MAX)
+            self.genome[grain][2] = np.random.uniform(c.FORCE_Y_MIN, c.FORCE_Y_MAX)
+            self.genome[grain][3] = -6 * 0.5
+            self.genome[grain][4] = 2 * (0.5 + 0.35)
+            self.genome[grain][5] = 0.25 / 2
+            self.genome[grain][6] = np.random.uniform(c.MASS_MIN, c.MASS_MAX)
+            self.genome[grain][7] = np.random.uniform(c.FRICTION_MIN, c.FRICTION_MAX)
+            self.genome[grain][8] = np.random.uniform(c.FRICTION_MIN, c.FRICTION_MAX)
+            self.genome[grain][9] = np.random.uniform(c.FRICTION_MIN, c.FRICTION_MAX)
 
 
     def setup_genome(self):
