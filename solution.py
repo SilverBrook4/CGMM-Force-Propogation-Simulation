@@ -285,7 +285,7 @@ class Solution: #(genome is a solution), calls functions to create files
 
 
     # TODO: calls world and CGMM file creators and starts simulation
-    def start_simulation(self):
+    def start_simulation(self, direct_or_gui):
 
         self.create_world()
 
@@ -293,11 +293,22 @@ class Solution: #(genome is a solution), calls functions to create files
 
         # TODO: eventually replace with multi threading
         #Calls simulate.run
-        run(c.directOrGUI, self.id, c.supressMessages, self.genome, self.target) #simulate.run
+        self.fitness = run(direct_or_gui, self.id, c.SUPRESS_MESSAGES, self.genome, self.target) #simulate.run
 
 
     # TODO: waits for simulation to end and retrieves fitness (might not need to be implemented now)
     def wait_for_simulation_to_end(self):
 
         pass
+
+
+    '''
+    Gets the fitness of the solution
+
+    Returns:
+        fitness (float): the solutiopns fitness
+    '''
+    def get_fitness(self):
+
+        return self.fitness
 

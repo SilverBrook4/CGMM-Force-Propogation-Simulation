@@ -49,31 +49,31 @@ class Simulation:
 
     # class destructor 
     def __del__(self):
-        
+
         if c.TAKE_VIDEO:
 
             p.stopStateLogging(self.log_id)
-        
 
         p.disconnect()
 
 
     # Runs simulation loop and steps simulation
     def run(self):
-        
+
         if c.TAKE_VIDEO:
 
             script_dir = os.path.dirname(os.path.abspath(__file__))
             path = os.path.join(script_dir, "Videos", c.VIDEO_NAME)
 
             self.log_id = p.startStateLogging(p.STATE_LOGGING_VIDEO_MP4, path)
-        
 
         #Call start_simulation from solution
                 #Keep sim running
         for timestep in range(0,c.NUM_ITERS):
 
-            time.sleep(1/240)
+            if self.should_sleep:
+
+                time.sleep(1/240)
 
             for row in range(0, len(self.genome)):
 
@@ -94,7 +94,9 @@ class Simulation:
             self.update_fitness()
 
             #slows simulation so it can be observed
-            time.sleep(c.SIM_SLEEP)
+            if self.should_sleep:
+
+                time.sleep(c.SIM_SLEEP)
 
 
     '''
@@ -114,3 +116,14 @@ class Simulation:
         distance_normalized = distance # TODO: normalize distance
 
         self.fitness += distance_normalized
+
+
+    '''
+    Gets the fitness of the simulation
+
+    Returns:
+        fitness (float): summed distance of the grain to the target over the simulations time
+    '''
+    def get_fitness(self):
+
+        return self.fitness

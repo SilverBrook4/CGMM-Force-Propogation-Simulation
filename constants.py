@@ -1,6 +1,6 @@
 # constants files
 directOrGUI = "GUI"
-supressMessages = False
+SUPRESS_MESSAGES = True
 PYBULLET_DEBUGGER = False
 
 NUM_ITERS = 500
@@ -15,9 +15,9 @@ VIDEO_NAME = "test.mp4" #should end with .mp4
 
 # ----- Evolutionary Algorithm Hyperparameter Defaults -----
 
-NUM_GENERATIONS = 2
+NUM_GENERATIONS = 4
 
-POPULATION_SIZE = 1
+POPULATION_SIZE = 2
 
 NUM_GRAINS_TO_CROSSOVER = 5
 

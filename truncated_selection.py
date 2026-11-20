@@ -31,6 +31,8 @@ class TruncatedSelection:
 
         for generation in range(self.num_generations):
 
+            print(f"Generation: {generation}")
+
             self.evolve_one_generation()
 
 
@@ -40,7 +42,8 @@ class TruncatedSelection:
     def evolve_one_generation(self):
 
         self.spawn_children()
-        self.crossover()
+        # BUG: turning off crossover
+        # self.crossover()
         self.mutate()
         self.evaluate(self.children)
         self.select()
@@ -72,6 +75,7 @@ class TruncatedSelection:
     '''
     Performs crossover on all children in a generation
     '''
+    # BUG: this function gives a value error
     def crossover(self):
 
         num_solutions_for_crossover = 0
@@ -101,7 +105,7 @@ class TruncatedSelection:
         # starts simulation evaluation of solutions
         for solution in solutions:
 
-            solutions[solution].start_simulation()
+            solutions[solution].start_simulation("DIRECT")
 
         # waits for all solution simulations to finish and record results before moving on
         for solution in solutions:
@@ -109,11 +113,24 @@ class TruncatedSelection:
             solutions[solution].wait_for_simulation_to_end()
 
 
-    # TODO: evaluate solutions based on fitness function
+    '''
+    Selects parents and children to survive to the next generation based on lowest fitness score
+    '''
     def select(self):
-        #**Lower fitness is better
-        pass
-        
+
+        # checks each parent child group
+        for family in range(self.num_parents):
+
+            parent_fitness = self.parents[family].get_fitness()
+            child_fitness = self.children[family].get_fitness()
+
+            print(f"parent: {parent_fitness} || child: {child_fitness}")
+
+            # if child is more fit than parent, replace parent with child
+            if child_fitness <= parent_fitness:
+
+                self.parents[family] = copy.deepcopy(self.children[family])
+                print("Parent Replaced")
 
 
     # TODO: save fitness and simulation data for graphing and analysis
