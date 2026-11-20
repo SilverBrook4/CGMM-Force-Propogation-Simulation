@@ -179,11 +179,28 @@ class Solution: #(genome is a solution), calls functions to create files
                 mutation = np.random.uniform(-c.FORCE_MAGNITUDE_X_BOUND, c.FORCE_MAGNITUDE_X_BOUND)
                 self.genome[grain][gene] += mutation * learning_rate
 
+                # check that force does not excede maximum or minimum
+                if self.genome[grain][gene] > c.FORCE_X_MAX:
+
+                    self.genome[grain][gene] = c.FORCE_X_MAX
+
+                elif self.genome[grain][gene] < c.FORCE_X_MIN:
+
+                    self.genome[grain][gene] = c.FORCE_X_MIN
+
             case 2: # force magnitude y
 
                 mutation = np.random.uniform(-c.FORCE_MAGNITUDE_Y_BOUND, c.FORCE_MAGNITUDE_Y_BOUND)
                 self.genome[grain][gene] += mutation * learning_rate
 
+                # check that force does not excede maximum or minimum
+                if self.genome[grain][gene] > c.FORCE_Y_MAX:
+
+                    self.genome[grain][gene] = c.FORCE_Y_MAX
+
+                elif self.genome[grain][gene] < c.FORCE_Y_MIN:
+
+                    self.genome[grain][gene] = c.FORCE_Y_MIN
 
             case 3: # force direction x
 
