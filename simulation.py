@@ -45,6 +45,7 @@ class Simulation:
         # initilize values for calculating fitness
         self.target = target
         self.fitness = 0
+        self.distance_normalizer = self.get_distance_to_target(10)
 
 
     # class destructor 
@@ -100,20 +101,36 @@ class Simulation:
 
 
     '''
-    Updates the fitness by adding the normalized distance between the target and the final grain to the fitness
+    Computes the distance from the grain to the target
 
-    fitness = sumation( normalization_value * sqrt( ( x_2 - x_1 )^2 + ( y_2 - y_1 )^2 )
+    Paramaters:
+        grain (int): the grain the distance is being computed from
+
+    Returns:
+        distance (float): the computed distance to the target
     '''
-    def update_fitness(self):
+    def get_distance_to_target(self, grain=10):
 
-        pos_grain = self.cgmm.get_grain_position(10)
+        pos_grain = self.cgmm.get_grain_position(grain)
 
         x = self.target[0] - pos_grain[0]
         y = self.target[1] - pos_grain[1]
 
         distance = np.sqrt(np.square(x) + np.square(y))
 
-        distance_normalized = distance # TODO: normalize distance
+        return distance
+
+
+    '''
+    Updates the fitness by adding the normalized distance between the target and the final grain to the fitness
+
+    fitness = sumation( normalization_value * sqrt( ( x_2 - x_1 )^2 + ( y_2 - y_1 )^2 )
+    '''
+    def update_fitness(self):
+
+        distance = self.get_distance_to_target(10)
+
+        distance_normalized = distance / self.distance_normalizer
 
         self.fitness += distance_normalized
 
