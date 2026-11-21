@@ -61,7 +61,7 @@ class Solution: #(genome is a solution), calls functions to create files
     def create_grain(self, index, pos, radius, height, mass, lateral_friction, rolling_friction, spinning_friction):
 
         # start file creation
-        pyrosim.Start_URDF(f"grain_{str(index)}.urdf")
+        pyrosim.Start_URDF(f"grain_{self.id}_{str(index)}.urdf")
 
         pyrosim.Send_Cylinder(name="Grain",
                              pos=pos,

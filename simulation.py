@@ -37,9 +37,11 @@ class Simulation:
         # sets physics client gravity 
         p.setGravity(0, 0, -9.8, self.physics_client)
 
+        self.id = solution_id
+
         self.genome = genome
-        self.world = World(solution_id)
-        self.cgmm = CGMM(genome) #TODO: Give solutionID?
+        self.world = World()
+        self.cgmm = CGMM(genome, self.id)
 
         # initilize values for calculating fitness
         self.target = target

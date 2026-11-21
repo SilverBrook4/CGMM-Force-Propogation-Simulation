@@ -3,13 +3,13 @@ import constants as c
 
 class CGMM:
 
-    def __init__(self, genome):
+    def __init__(self, genome, id):
 
         self.grains = []
 
         for index in range(c.NUM_GRAINS):
 
-            self.grains.append(Grain(index))
+            self.grains.append(Grain(index, id))
 
 
     '''
