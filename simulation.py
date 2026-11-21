@@ -30,7 +30,6 @@ class Simulation:
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
 
         # checks if pybullet debugger is enabled 
-        #TODO: Look at later
         if not c.PYBULLET_DEBUGGER:
 
             p.configureDebugVisualizer(p.COV_ENABLE_GUI,0)
@@ -130,7 +129,7 @@ class Simulation:
 
         distance = self.get_distance_to_target(10)
 
-        distance_normalized = distance / self.distance_normalizer
+        distance_normalized = distance #TODO: / self.distance_normalizer
 
         self.fitness += distance_normalized
 
@@ -143,4 +142,4 @@ class Simulation:
     '''
     def get_fitness(self):
 
-        return self.fitness
+        return self.fitness / c.NUM_ITERS
