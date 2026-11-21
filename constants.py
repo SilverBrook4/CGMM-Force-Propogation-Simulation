@@ -15,9 +15,9 @@ VIDEO_NAME = "test.mp4" #should end with .mp4
 
 # ----- Evolutionary Algorithm Hyperparameter Defaults -----
 
-NUM_GENERATIONS = 4
+NUM_GENERATIONS = 100
 
-POPULATION_SIZE = 2
+POPULATION_SIZE = 10
 
 NUM_GRAINS_TO_CROSSOVER = 5
 

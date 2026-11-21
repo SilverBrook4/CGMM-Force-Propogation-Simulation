@@ -148,5 +148,17 @@ class TruncatedSelection:
 
     # TODO: run simultation with graphics on to show the best found solution
     def show_best_solution(self):
-        #Look in parallel hillclimber - record video of that and random initialization for one 
-        pass
+
+        best_solution = 0
+
+        for solution in range(1, self.num_parents):
+
+            if self.parents[solution].get_fitness() > self.parents[best_solution].get_fitness():
+
+                best_solution = solution
+
+        print(f"Best Solution's Fitness: {self.parents[best_solution].get_fitness()}")
+        self.parents[best_solution].clear_process()
+        self.parents[best_solution].set_pipes()
+        self.parents[best_solution].start_simulation("GUI")
+        self.parents[best_solution].wait_for_simulation_to_end()
