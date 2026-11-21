@@ -58,8 +58,12 @@ class TruncatedSelection:
 
         for child in range(self.num_parents):
 
+            # clear process data
+            self.parents[child].clear_process()
+
             self.children[child] = copy.deepcopy(self.parents[child])
             self.children[child].set_id(uuid.uuid4().hex)
+            self.children[child].set_pipes()
 
 
     '''
@@ -128,6 +132,9 @@ class TruncatedSelection:
 
             # if child is more fit than parent, replace parent with child
             if child_fitness <= parent_fitness:
+
+                # clear process data
+                self.children[family].clear_process()
 
                 self.parents[family] = copy.deepcopy(self.children[family])
                 print("Parent Replaced")

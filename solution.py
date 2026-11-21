@@ -1,4 +1,5 @@
 import pyrosim.pyrosim as pyrosim
+from multiprocess import Process, Pipe
 from simulate import run
 import constants as c
 import numpy as np
@@ -13,7 +14,10 @@ class Solution: #(genome is a solution), calls functions to create files
         #Direction and magnitude of force, grain mass and radius TODO: Fix solution ID later
         self.id  = id
         self.target = [1, -1]
-        # Set up directorGUI, solutionID, connection and supressMessages here?     
+
+        # set up multiprocessing
+        self.process = None
+        self.parent_connection, self.child_connection = Pipe()
 
 
     def set_id(self, id):
@@ -21,9 +25,16 @@ class Solution: #(genome is a solution), calls functions to create files
         self.id = id
 
 
-    # TODO: generates world URDF and SDF files
-    def create_world(self):
-        pass
+    def set_pipes(self):
+
+        self.parent_connection, self.child_connection = Pipe()
+
+
+    def clear_process(self):
+
+        self.process = None
+        self.parent_connection = None
+        self.child_connection = None
 
 
     '''
@@ -287,19 +298,19 @@ class Solution: #(genome is a solution), calls functions to create files
     # TODO: calls world and CGMM file creators and starts simulation
     def start_simulation(self, direct_or_gui):
 
-        self.create_world()
-
         self.create_cgmm(radius=0.5, height=0.25)
 
         # TODO: eventually replace with multi threading
         #Calls simulate.run
-        self.fitness = run(direct_or_gui, self.id, c.SUPRESS_MESSAGES, self.genome, self.target) #simulate.run
+        self.process = Process(target=run, args=(direct_or_gui, self.id, c.SUPRESS_MESSAGES, self.genome, self.target, self.child_connection)) #simulate.run
+        self.process.start()
 
 
     # TODO: waits for simulation to end and retrieves fitness (might not need to be implemented now)
     def wait_for_simulation_to_end(self):
 
-        pass
+        self.fitness = float(self.parent_connection.recv())
+        self.process.join()
 
 
     '''
